@@ -2,7 +2,7 @@ import pandas as pd
 from datetime import datetime
 import psycopg2
 import requests
-
+from airflow.models import Variable
 
 
 #Connexion à la base de données PostgreSQL sur Koyeb

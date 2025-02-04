@@ -1,0 +1,40 @@
+[2025-02-04 15:17:12,979] {taskinstance.py:1159} INFO - Dependencies all met for <TaskInstance: grippe_etl_pipeline.fetch_grippe_data scheduled__2024-12-07T00:00:00+00:00 [queued]>
+[2025-02-04 15:17:12,981] {taskinstance.py:1159} INFO - Dependencies all met for <TaskInstance: grippe_etl_pipeline.fetch_grippe_data scheduled__2024-12-07T00:00:00+00:00 [queued]>
+[2025-02-04 15:17:12,981] {taskinstance.py:1356} INFO - 
+--------------------------------------------------------------------------------
+[2025-02-04 15:17:12,981] {taskinstance.py:1357} INFO - Starting attempt 1 of 1
+[2025-02-04 15:17:12,981] {taskinstance.py:1358} INFO - 
+--------------------------------------------------------------------------------
+[2025-02-04 15:17:12,986] {taskinstance.py:1377} INFO - Executing <Task(PythonOperator): fetch_grippe_data> on 2024-12-07 00:00:00+00:00
+[2025-02-04 15:17:12,988] {standard_task_runner.py:52} INFO - Started process 1236 to run task
+[2025-02-04 15:17:12,989] {standard_task_runner.py:79} INFO - Running: ['***', 'tasks', 'run', 'grippe_etl_pipeline', 'fetch_grippe_data', 'scheduled__2024-12-07T00:00:00+00:00', '--job-id', '315', '--raw', '--subdir', 'DAGS_FOLDER/influenza-ETL.py', '--cfg-path', '/tmp/tmp6avpzgzk', '--error-file', '/tmp/tmpe_lmow1k']
+[2025-02-04 15:17:12,990] {standard_task_runner.py:80} INFO - Job 315: Subtask fetch_grippe_data
+[2025-02-04 15:17:13,008] {task_command.py:370} INFO - Running <TaskInstance: grippe_etl_pipeline.fetch_grippe_data scheduled__2024-12-07T00:00:00+00:00 [running]> on host 559b3591b7a4
+[2025-02-04 15:17:13,037] {taskinstance.py:1571} INFO - Exporting the following env vars:
+AIRFLOW_CTX_DAG_OWNER=***
+AIRFLOW_CTX_DAG_ID=grippe_etl_pipeline
+AIRFLOW_CTX_TASK_ID=fetch_grippe_data
+AIRFLOW_CTX_EXECUTION_DATE=2024-12-07T00:00:00+00:00
+AIRFLOW_CTX_TRY_NUMBER=1
+AIRFLOW_CTX_DAG_RUN_ID=scheduled__2024-12-07T00:00:00+00:00
+[2025-02-04 15:17:13,236] {taskinstance.py:1889} ERROR - Task failed with exception
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 171, in execute
+    return_value = self.execute_callable()
+  File "/home/airflow/.local/lib/python3.7/site-packages/airflow/operators/python.py", line 189, in execute_callable
+    return self.python_callable(*self.op_args, **self.op_kwargs)
+  File "/opt/airflow/dags/influenza-ETL.py", line 12, in fetch_grippe_data
+    df = pd.DataFrame(data)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/frame.py", line 614, in __init__
+    mgr = dict_to_mgr(data, index, columns, dtype=dtype, copy=copy, typ=manager)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 465, in dict_to_mgr
+    arrays, data_names, index, columns, dtype=dtype, typ=typ, consolidate=copy
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 119, in arrays_to_mgr
+    index = _extract_index(arrays)
+  File "/home/airflow/.local/lib/python3.7/site-packages/pandas/core/internals/construction.py", line 625, in _extract_index
+    raise ValueError("If using all scalar values, you must pass an index")
+ValueError: If using all scalar values, you must pass an index
+[2025-02-04 15:17:13,244] {taskinstance.py:1400} INFO - Marking task as FAILED. dag_id=grippe_etl_pipeline, task_id=fetch_grippe_data, execution_date=20241207T000000, start_date=20250204T151712, end_date=20250204T151713
+[2025-02-04 15:17:13,249] {standard_task_runner.py:97} ERROR - Failed to execute job 315 for task fetch_grippe_data (If using all scalar values, you must pass an index; 1236)
+[2025-02-04 15:17:13,260] {local_task_job.py:156} INFO - Task exited with return code 1
+[2025-02-04 15:17:13,278] {local_task_job.py:273} INFO - 0 downstream tasks scheduled from follow-on schedule check

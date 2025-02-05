@@ -8,7 +8,7 @@ import io
 import os
 from sqlalchemy import create_engine
 
-# Configuration
+# 📌 Configuration
 DATA_DIR = "data"
 os.makedirs(DATA_DIR, exist_ok=True)
 
@@ -17,10 +17,10 @@ API_URLS = {
     "casgrippe": "https://www.sentiweb.fr/api/v1/datasets/rest/incidence?indicator=3&geo=PAY&span=all"
 }
 
-def get_file_path(data_type):
-    """Génère le nom du fichier avec un timestamp"""
+def get_file_path(data_type, stage="raw"):
+    """Génère le nom de fichier avec un timestamp et un stage (raw, transformed)"""
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    return os.path.join(DATA_DIR, f"{data_type}_{timestamp}.csv")
+    return os.path.join(DATA_DIR, f"{stage}_{data_type}_{timestamp}.csv")
 
 def extract_data(data_type, **context):
     """Extrait les données d'une API et les stocke en CSV"""
@@ -33,17 +33,40 @@ def extract_data(data_type, **context):
         response.raise_for_status()
 
         df = pd.read_csv(io.StringIO(response.text))
-        file_path = get_file_path(data_type)
+        file_path = get_file_path(data_type, "raw")
         df.to_csv(file_path, index=False)
         
         context['task_instance'].xcom_push(key=f'file_path_{data_type}', value=file_path)
-        print(f"✅ {data_type.upper()} - Fichier CSV sauvegardé : {file_path}")
+        print(f"✅ {data_type.upper()} - Fichier RAW sauvegardé : {file_path}")
     
     except Exception as e:
         raise Exception(f"❌ Erreur lors de l'extraction des données {data_type} : {e}")
 
+def transform_data(data_type, **context):
+    """Transforme les données: suppression des doublons et des valeurs vides"""
+    try:
+        ti = context['task_instance']
+        raw_file_path = ti.xcom_pull(task_ids=f'extract_{data_type}', key=f'file_path_{data_type}')
+        
+        if not raw_file_path or not os.path.exists(raw_file_path):
+            raise Exception(f"❌ Fichier RAW {data_type} introuvable : {raw_file_path}")
+
+        df = pd.read_csv(raw_file_path)
+        
+        # Suppression des valeurs manquantes et doublons
+        df_cleaned = df.dropna().drop_duplicates()
+        
+        transformed_file_path = get_file_path(data_type, "transformed")
+        df_cleaned.to_csv(transformed_file_path, index=False)
+        
+        context['task_instance'].xcom_push(key=f'transformed_file_path_{data_type}', value=transformed_file_path)
+        print(f"✅ {data_type.upper()} - Fichier TRANSFORMÉ sauvegardé : {transformed_file_path} ({len(df_cleaned)} lignes)")
+
+    except Exception as e:
+        raise Exception(f"❌ Erreur lors de la transformation des données {data_type} : {e}")
+
 def load_data_to_koyeb(data_type, table_name, **context):
-    """Charge un fichier CSV dans PostgreSQL"""
+    """Charge un fichier transformé dans PostgreSQL"""
     try:
         # Connexion PostgreSQL
         host = Variable.get("koyeb_postgres_host")
@@ -56,15 +79,16 @@ def load_data_to_koyeb(data_type, table_name, **context):
         connection_string = f"postgresql://{login}:{password}@{host}:{port}/{db}?options=endpoint%3D{endpoint_id}&sslmode=require"
         engine = create_engine(connection_string)
 
-        # Récupération du fichier depuis XCom
-        file_path = context['task_instance'].xcom_pull(task_ids=f'extract_{data_type}', key=f'file_path_{data_type}')
-        if not file_path or not os.path.exists(file_path):
-            raise Exception(f"❌ Fichier {data_type} introuvable : {file_path}")
+        # Récupération du fichier transformé depuis XCom
+        ti = context['task_instance']
+        transformed_file_path = ti.xcom_pull(task_ids=f'transform_{data_type}', key=f'transformed_file_path_{data_type}')
+        
+        if not transformed_file_path or not os.path.exists(transformed_file_path):
+            raise Exception(f"❌ Fichier TRANSFORMÉ {data_type} introuvable : {transformed_file_path}")
 
-        df = pd.read_csv(file_path)
-        df_cleaned = df.dropna()
+        df = pd.read_csv(transformed_file_path)
 
-        df_cleaned.to_sql(
+        df.to_sql(
             name=table_name,
             con=engine,
             if_exists='replace',
@@ -73,12 +97,12 @@ def load_data_to_koyeb(data_type, table_name, **context):
             chunksize=1000
         )
 
-        print(f"✅ Chargement réussi dans la table {table_name} ({len(df_cleaned)} lignes)")
+        print(f"✅ Chargement réussi dans la table {table_name} ({len(df)} lignes)")
 
     except Exception as e:
         raise Exception(f"❌ Erreur lors du chargement des données {data_type} : {e}")
 
-# Configuration du DAG
+# 📌 Configuration du DAG
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -95,7 +119,7 @@ with DAG(
     catchup=False
 ) as dag:
 
-    # Tâches d'extraction
+    # 🔹 Extraction des données
     extract_vaccins_task = PythonOperator(
         task_id='extract_vaccins',
         python_callable=extract_data,
@@ -110,7 +134,22 @@ with DAG(
         provide_context=True
     )
 
-    # Tâches de chargement en base
+    # 🔹 Transformation des données
+    transform_vaccins_task = PythonOperator(
+        task_id='transform_vaccins',
+        python_callable=transform_data,
+        op_kwargs={'data_type': 'vaccins'},
+        provide_context=True
+    )
+
+    transform_casgrippe_task = PythonOperator(
+        task_id='transform_casgrippe',
+        python_callable=transform_data,
+        op_kwargs={'data_type': 'casgrippe'},
+        provide_context=True
+    )
+
+    # 🔹 Chargement des données en base
     load_vaccins_task = PythonOperator(
         task_id='load_vaccins',
         python_callable=load_data_to_koyeb,
@@ -125,6 +164,6 @@ with DAG(
         provide_context=True
     )
 
-    # Définition du workflow
-    extract_vaccins_task >> load_vaccins_task
-    extract_casgrippe_task >> load_casgrippe_task
+    # 🔗 Définition du workflow : EXTRACT -> TRANSFORM -> LOAD
+    extract_vaccins_task >> transform_vaccins_task >> load_vaccins_task
+    extract_casgrippe_task >> transform_casgrippe_task >> load_casgrippe_task

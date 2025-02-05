@@ -3512,3 +3512,81 @@ IndentationError: unexpected unindent
 [2025-02-05 13:09:35,570] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
 [2025-02-05 13:09:35,578] {logging_mixin.py:115} INFO - [2025-02-05 13:09:35,578] {dag.py:2379} INFO - Sync 1 DAGs
 [2025-02-05 13:09:35,587] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.242 seconds
+[2025-02-05 13:10:05,760] {processor.py:153} INFO - Started process (PID=8193) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:05,761] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:10:05,762] {logging_mixin.py:115} INFO - [2025-02-05 13:10:05,762] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:05,944] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:05,951] {logging_mixin.py:115} INFO - [2025-02-05 13:10:05,951] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:10:05,961] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.210 seconds
+[2025-02-05 13:10:36,107] {processor.py:153} INFO - Started process (PID=8221) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:36,108] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:10:36,109] {logging_mixin.py:115} INFO - [2025-02-05 13:10:36,109] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:36,337] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:10:36,347] {logging_mixin.py:115} INFO - [2025-02-05 13:10:36,347] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:10:36,358] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.253 seconds
+[2025-02-05 13:11:06,530] {processor.py:153} INFO - Started process (PID=8250) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:06,531] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:11:06,531] {logging_mixin.py:115} INFO - [2025-02-05 13:11:06,531] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:06,690] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:06,696] {logging_mixin.py:115} INFO - [2025-02-05 13:11:06,696] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:11:06,705] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.183 seconds
+[2025-02-05 13:11:36,797] {processor.py:153} INFO - Started process (PID=8278) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:36,799] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:11:36,799] {logging_mixin.py:115} INFO - [2025-02-05 13:11:36,799] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:36,901] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:11:36,910] {logging_mixin.py:115} INFO - [2025-02-05 13:11:36,909] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:11:36,916] {logging_mixin.py:115} INFO - [2025-02-05 13:11:36,916] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:11:36,920] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.127 seconds
+[2025-02-05 13:12:06,986] {processor.py:153} INFO - Started process (PID=8307) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:06,987] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:12:06,987] {logging_mixin.py:115} INFO - [2025-02-05 13:12:06,987] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:07,102] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:07,115] {logging_mixin.py:115} INFO - [2025-02-05 13:12:07,114] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:12:07,124] {logging_mixin.py:115} INFO - [2025-02-05 13:12:07,124] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:12:07,128] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.145 seconds
+[2025-02-05 13:12:37,227] {processor.py:153} INFO - Started process (PID=8327) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:37,228] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:12:37,228] {logging_mixin.py:115} INFO - [2025-02-05 13:12:37,228] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:37,323] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:12:37,333] {logging_mixin.py:115} INFO - [2025-02-05 13:12:37,332] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:12:37,340] {logging_mixin.py:115} INFO - [2025-02-05 13:12:37,340] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:12:37,344] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.119 seconds
+[2025-02-05 13:13:07,421] {processor.py:153} INFO - Started process (PID=8356) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:07,422] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:13:07,422] {logging_mixin.py:115} INFO - [2025-02-05 13:13:07,422] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:07,538] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:07,548] {logging_mixin.py:115} INFO - [2025-02-05 13:13:07,548] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:13:07,557] {logging_mixin.py:115} INFO - [2025-02-05 13:13:07,557] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:13:07,561] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.145 seconds
+[2025-02-05 13:13:37,635] {processor.py:153} INFO - Started process (PID=8385) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:37,636] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:13:37,637] {logging_mixin.py:115} INFO - [2025-02-05 13:13:37,637] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:37,775] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:37,790] {logging_mixin.py:115} INFO - [2025-02-05 13:13:37,789] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:13:37,803] {logging_mixin.py:115} INFO - [2025-02-05 13:13:37,803] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:13:37,807] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.184 seconds
+[2025-02-05 13:13:52,901] {processor.py:153} INFO - Started process (PID=8404) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:52,902] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:13:52,902] {logging_mixin.py:115} INFO - [2025-02-05 13:13:52,902] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:53,009] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:13:53,030] {logging_mixin.py:115} INFO - [2025-02-05 13:13:53,030] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:13:53,037] {logging_mixin.py:115} INFO - [2025-02-05 13:13:53,037] {dag.py:2931} INFO - Setting next_dagrun for grippe_ETL_pipeline to 2025-02-05T13:00:00+00:00, run_after=2025-02-05T14:00:00+00:00
+[2025-02-05 13:13:53,042] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.146 seconds
+[2025-02-05 13:14:23,190] {processor.py:153} INFO - Started process (PID=8428) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:23,190] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:14:23,191] {logging_mixin.py:115} INFO - [2025-02-05 13:14:23,191] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:23,295] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:23,307] {logging_mixin.py:115} INFO - [2025-02-05 13:14:23,307] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:14:23,322] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.135 seconds
+[2025-02-05 13:14:53,353] {processor.py:153} INFO - Started process (PID=8457) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:53,355] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:14:53,355] {logging_mixin.py:115} INFO - [2025-02-05 13:14:53,355] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:53,476] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:14:53,489] {logging_mixin.py:115} INFO - [2025-02-05 13:14:53,488] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:14:53,502] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.154 seconds
+[2025-02-05 13:15:23,637] {processor.py:153} INFO - Started process (PID=8486) to work on /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:15:23,638] {processor.py:641} INFO - Processing file /opt/airflow/dags/influenza-ETL.py for tasks to queue
+[2025-02-05 13:15:23,639] {logging_mixin.py:115} INFO - [2025-02-05 13:15:23,639] {dagbag.py:507} INFO - Filling up the DagBag from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:15:23,738] {processor.py:651} INFO - DAG(s) dict_keys(['grippe_ETL_pipeline']) retrieved from /opt/airflow/dags/influenza-ETL.py
+[2025-02-05 13:15:23,747] {logging_mixin.py:115} INFO - [2025-02-05 13:15:23,746] {dag.py:2379} INFO - Sync 1 DAGs
+[2025-02-05 13:15:23,758] {processor.py:161} INFO - Processing /opt/airflow/dags/influenza-ETL.py took 0.126 seconds

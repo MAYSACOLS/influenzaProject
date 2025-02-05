@@ -13,7 +13,8 @@ DATA_DIR = "data"
 os.makedirs(DATA_DIR, exist_ok=True)
 
 API_URLS = {
-    "vaccins": "https://www.data.gouv.fr/fr/datasets/r/848e3e48-4971-4dc5-97c7-d856cdfde2f6",
+    "vaccins2024": "https://www.data.gouv.fr/fr/datasets/r/848e3e48-4971-4dc5-97c7-d856cdfde2f6",
+    "vaccins2023": "https://www.data.gouv.fr/fr/datasets/r/1b5339fe-47b9-4d29-9be6-792ac20e392b",
     "casgrippe": "https://www.sentiweb.fr/api/v1/datasets/rest/incidence?indicator=3&geo=PAY&span=all"
 }
 
@@ -55,7 +56,13 @@ def transform_data(data_type, **context):
         
         # Suppression des valeurs manquantes et doublons
         df_cleaned = df.dropna().drop_duplicates()
-        
+        if (data_type == 'casgrippe'):
+            # Calcul de la date à partir de la semaine
+            df_cleaned['date'] = df_cleaned['week'].apply(
+             lambda x: pd.to_datetime(f'{x // 100}-01-01', format='%Y-%m-%d')
+            - pd.DateOffset(days=pd.to_datetime(f'{x // 100}-01-01', format='%Y-%m-%d').weekday())
+            + pd.DateOffset(weeks=x % 100 - 1)
+            + pd.Timedelta(days=2))
         transformed_file_path = get_file_path(data_type, "transformed")
         df_cleaned.to_csv(transformed_file_path, index=False)
         
@@ -119,11 +126,18 @@ with DAG(
     catchup=False
 ) as dag:
 
-    # 🔹 Extraction des données
-    extract_vaccins_task = PythonOperator(
-        task_id='extract_vaccins',
+    # 📌 Extraction des données
+    extract_vaccins2023_task = PythonOperator(
+        task_id='extract_vaccins2023',
         python_callable=extract_data,
-        op_kwargs={'data_type': 'vaccins'},
+        op_kwargs={'data_type': 'vaccins2023'},
+        provide_context=True
+    )
+
+    extract_vaccins2024_task = PythonOperator(
+        task_id='extract_vaccins2024',
+        python_callable=extract_data,
+        op_kwargs={'data_type': 'vaccins2024'},
         provide_context=True
     )
 
@@ -134,11 +148,18 @@ with DAG(
         provide_context=True
     )
 
-    # 🔹 Transformation des données
-    transform_vaccins_task = PythonOperator(
-        task_id='transform_vaccins',
+    # 📌 Transformation des données
+    transform_vaccins2023_task = PythonOperator(
+        task_id='transform_vaccins2023',
         python_callable=transform_data,
-        op_kwargs={'data_type': 'vaccins'},
+        op_kwargs={'data_type': 'vaccins2023'},
+        provide_context=True
+    )
+
+    transform_vaccins2024_task = PythonOperator(
+        task_id='transform_vaccins2024',
+        python_callable=transform_data,
+        op_kwargs={'data_type': 'vaccins2024'},
         provide_context=True
     )
 
@@ -149,11 +170,18 @@ with DAG(
         provide_context=True
     )
 
-    # 🔹 Chargement des données en base
-    load_vaccins_task = PythonOperator(
-        task_id='load_vaccins',
+    # 📌 Chargement des données en base
+    load_vaccins2023_task = PythonOperator(
+        task_id='load_vaccins2023',
         python_callable=load_data_to_koyeb,
-        op_kwargs={'data_type': 'vaccins', 'table_name': 'grippe_vaccins'},
+        op_kwargs={'data_type': 'vaccins2023', 'table_name': 'grippe_vaccins2023'},
+        provide_context=True
+    )
+
+    load_vaccins2024_task = PythonOperator(
+        task_id='load_vaccins2024',
+        python_callable=load_data_to_koyeb,
+        op_kwargs={'data_type': 'vaccins2024', 'table_name': 'grippe_vaccins2024'},
         provide_context=True
     )
 
@@ -165,5 +193,12 @@ with DAG(
     )
 
     # 🔗 Définition du workflow : EXTRACT -> TRANSFORM -> LOAD
-    extract_vaccins_task >> transform_vaccins_task >> load_vaccins_task
+
+    # Vaccins 2023
+    extract_vaccins2023_task >> transform_vaccins2023_task >> load_vaccins2023_task
+
+    # Vaccins 2024
+    extract_vaccins2024_task >> transform_vaccins2024_task >> load_vaccins2024_task
+
+    # Cas de grippe
     extract_casgrippe_task >> transform_casgrippe_task >> load_casgrippe_task
